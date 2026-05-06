@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Finder </title>
+    <style>
+        body{ 
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+
+        }
+        .search-box{
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 10px;
+        }
+        .sperch-box{
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .doctor-card{
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .specialization {
+            color: #007bff; 
+            font-weight: bold;
+        }
+        input[type='text'] {
+            padding: 10px;
+            width: 300px;
+        }
+        button{
+            padding: 10px 20px; 
+            background: #007bff; 
+            color: white;
+            border : none
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="search-box">
+        <h1>
+            Find Your Doctor
+        </h1>
+
+        <form action="" method="GET">
+            <input type="text" name="q" placeholder="Search by name,specialist, or city...." value="{{ search_term|default:'' }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="results">
+        {% if doctors %}
+            {% for doc in doctors %}
+                <div class="doctor-card">
+                    <h3>Dr. {{doc.name}}</h3>
+                    <p class="specialization">{{ doc.specialization.name }}</p>
+                    <p><strong>Exprience : </strong>{{ doc.exprience_years }} years</p>
+                    <p><strong>Location : </strong> {{ doc.location }}</p>
+                    <p><strong>Email : </strong>{{ doc.contact_email }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No Doctors found matching your criteria.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
